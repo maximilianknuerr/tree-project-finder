@@ -1,4 +1,3 @@
-import {CCard, CCardBody, CCardTitle} from "@coreui/react";
 
 type PlantationCardProps = {
     projectName: string,
