@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getDistance } from 'geolib';
+import { orderByDistance, getDistance } from 'geolib';
 import './App.css'
 
 import customLocations from './assets/customerLocations.json'
@@ -35,18 +35,24 @@ interface Location {
 
 function sortPlantationsByDistanceToLocation(plantations: Plantation[], location: Location): Plantation[] {
   return plantations.sort((a, b) => {
-    const aCoords = { latitude: Number(a.latitude), longitude: Number(a.longitude) };
-    const bCoords = { latitude: Number(b.latitude), longitude: Number(b.longitude) };
+    const aCoords = { latitude: a.latitude, longitude: a.longitude };
+    const bCoords = { latitude: b.latitude, longitude: b.longitude };
 
-    const distanceA = getDistance(location, aCoords);
-    const distanceB = getDistance(location, bCoords);
-    return distanceA - distanceB;
+    const distanceA = getDistance(location, aCoords) % 1000;
+    const distanceB = getDistance(location, bCoords) % 1000;
+//    return distanceA - distanceB;
+    if (distanceA < distanceB)
+      return -1;
+    if (distanceA > distanceB)
+      return 1;
+    return 0;
   })
+//  return orderByDistance({latitude: location.latitude, longitude: location.longitude}, plantations) as Plantation[]
 }
 
 function getDistancesOfNearestThree(plantations: Plantation[], location: Location): { plantation: Plantation, distance: number }[] {
   var distances: { plantation: Plantation, distance: number }[] = []
-  for (let i = 0; i < 3; i++ ) {
+  for (let i = 0; i < plantations.length; i++ ) {
     let distance = getDistance(location, { latitude: Number(plantations[i].latitude), longitude: Number(plantations[i].longitude) })
     distances.push({ plantation: plantations[i], distance: distance })
   }
