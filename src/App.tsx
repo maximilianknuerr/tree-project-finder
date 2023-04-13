@@ -52,7 +52,7 @@ function sortPlantationsByDistanceToLocation(plantations: Plantation[], location
 
 function getDistancesOfNearestThree(plantations: Plantation[], location: Location): { plantation: Plantation, distance: number }[] {
   var distances: { plantation: Plantation, distance: number }[] = []
-  for (let i = 0; i < plantations.length; i++ ) {
+  for (let i = 0; i < 3; i++ ) {
     let distance = getDistance(location, { latitude: Number(plantations[i].latitude), longitude: Number(plantations[i].longitude) })
     distances.push({ plantation: plantations[i], distance: distance })
   }
