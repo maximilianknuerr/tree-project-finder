@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "name": "dev",
+            "type": "command",
+            "program": "/opt/homebrew/bin/npm",
+            "args": ["run","dev"],
+        },
+    ]
+}
