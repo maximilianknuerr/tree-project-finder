@@ -71,14 +71,13 @@ function App() {
 
 
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
     let searchedLocations = locations.filter(e => e.name === event.target.value)
     if (searchedLocations.length > 0) {
       setCurrentPlantations(getNearestPlantations(plantations, searchedLocations[0]))
       setCurrentLocation(searchedLocations[0].name)
     }
-
   }
 
 
